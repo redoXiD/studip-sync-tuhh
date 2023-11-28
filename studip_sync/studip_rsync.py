@@ -218,6 +218,11 @@ def get_course_save_as(course):
     else:
         return course["save_as"]
 
+def sanitize_dir_name(dir_name):
+    invalid_chars = [":", "?", "*", "|", ">", "<", "\""]
+    for char in invalid_chars:
+        dir_name = dir_name.replace(char, "")
+    return dir_name
 
 class CourseRSync:
 
@@ -243,6 +248,8 @@ class CourseRSync:
 
         return self.session.check_course_new_files(self.course_id, CONFIG.last_sync)
 
+
+
     def download_recursive(self, folder_id=None, folder_path_relative=""):
         try:
             if self.use_api:
@@ -260,7 +267,8 @@ class CourseRSync:
 
         for file_data in form_data_files:
             folder_absolute = os.path.join(self.root_folder, folder_path_relative)
-            file_path = os.path.join(folder_absolute, file_data["name"])
+            sanitized_folder_absolute = sanitize_dir_name(folder_absolute)  # call the function without self
+            file_path = os.path.join(sanitized_folder_absolute, file_data["name"])  # use the sanitized directory name
             if is_file_new(file_data, file_path):
                 log("Downloading: {}: {}".format(file_data["id"], file_data["name"]))
 

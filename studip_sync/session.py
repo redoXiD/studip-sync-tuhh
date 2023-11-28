@@ -3,6 +3,7 @@ import shutil
 import time
 import urllib.parse
 import json
+import logging
 
 import requests
 
@@ -208,14 +209,17 @@ class Session(object):
 
         mediacast_list_url = self.url.mediacast_list()
 
-        with self.session.get(mediacast_list_url, params=params) as response:
-            if not response.ok:
-                if response.status_code == 500 and "not found" in response.text:
-                    raise MissingFeatureError("This course has no media")
-                else:
-                    raise DownloadError("Cannot access mediacast list page")
+        try:
+            with self.session.get(mediacast_list_url, params=params) as response:
+                if not response.ok:
+                    logging.error(f"Failed to access mediacast list page. Status: {response.status_code}, Reason: {response.reason}")
+                    return  # Skip the download if the page is not accessible
+                
+        except Exception as e:
+            logging.error(f"Exception occurred while accessing mediacast list page: {e}")
+            return  # Skip the download if an exception occurred
 
-            media_files = parsers.extract_media_list(response.text)
+        media_files = parsers.extract_media_list(response.text)
 
         os.makedirs(media_workdir, exist_ok=True)
 

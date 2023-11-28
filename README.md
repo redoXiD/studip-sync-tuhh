@@ -1,9 +1,14 @@
-# studip-sync
+# studip-sync-tuhh
 
 [![studip-sync](https://snapcraft.io/studip-sync/badge.svg)](https://snapcraft.io/studip-sync)
+### Fork notes
 
-In order to work with TUHH StudIP, you have to use this base url:
+This fork works with TUHH StudIP, StudIP sites from other universities may or may not work. I made some changes using GitHub Copilot to prevent the script from crashing while trying to access mediacast pages, this does _not_ mean that it completely prevents the errors from occuring. You have to use `Installation from source` to install it.
+
+In order to work correctly, you have to use this base url:
 `https://e-learning.tuhh.de/studip/index.php?again=yes`
+
+---
 
 Download and synchronize files and media from Stud.IP -- the campus management platform deployed at several German universities.
 
@@ -15,7 +20,7 @@ version (but most features will still work with StudIP 4.5).
 
 ### Installation from source
 
-1. `git clone https://github.com/studip-sync/studip-sync`
+1. `git clone https://github.com/redoXiD/studip-sync-tuhh`
 2. Install all needed dependencies
 3. Then run `./studip_sync.py -d /path/to/files -m /path/to/media` to sync files to `/path/to/files` and media to `/path/to/media`. (see Usage)
 

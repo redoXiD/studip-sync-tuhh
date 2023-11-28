@@ -279,6 +279,10 @@ class CourseRSync:
                 else:
                     self.session.download_file_api(file_data["id"], target_file)
 
+                if not os.path.exists(target_file):
+                    print(f"Warning: File {target_file} does not exist. Skipping size check.")
+                    continue
+
                 file_size = int(file_data["size"])
                 target_file_size = os.path.getsize(target_file)
                 if target_file_size != file_size:

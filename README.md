@@ -2,6 +2,9 @@
 
 [![studip-sync](https://snapcraft.io/studip-sync/badge.svg)](https://snapcraft.io/studip-sync)
 
+In order to work with TUHH StudIP, you have to use this base url:
+`https://e-learning.tuhh.de/studip/index.php?again=yes`
+
 Download and synchronize files and media from Stud.IP -- the campus management platform deployed at several German universities.
 
 Note that this project supports currently only the *University of Göttingen* and the *University of Passau* but 
@@ -54,7 +57,7 @@ To create a new configuration file execute:
     },
     "files_destination": "/home/bob/Documents/Uni",
     "media_destination": "/home/bob/Videos/Uni",
-    "base_url": "https://studip.uni-goettingen.de"
+    "base_url": "https://e-learning.tuhh.de/studip/index.php?again=yes"
 }
 
 ```

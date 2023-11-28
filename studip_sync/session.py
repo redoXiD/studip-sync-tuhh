@@ -151,6 +151,9 @@ class Session(object):
                 return path
 
     def download_file(self, download_url, tempfile):
+        if download_url is None:
+            print(f"Warning: Download URL is None. Skipping download.")
+            return
         with self.session.post(download_url, stream=True) as response:
             if not response.ok:
                 raise DownloadError("Cannot download file")
